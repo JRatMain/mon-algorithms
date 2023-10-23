@@ -60,7 +60,7 @@ def sort():
 def check_type_psn(reader):
     global mons
     print("The following Pokémon have the Poison type: ")
-    print()
+    print('===============================================')
     for row in reader:
         if row[1] == "Name":
             continue
@@ -70,6 +70,7 @@ def check_type_psn(reader):
         if t1 == 'Poison' or t2 == 'Poison':
             print(name)
         mons.append(row)
+    print('===============================================')
 
 
 with open('Pokemon_numerical.csv') as mon:
