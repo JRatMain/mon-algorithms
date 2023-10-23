@@ -16,7 +16,7 @@ def print_results(average_time, average_time2):
 
     print('On average, it took: ' + str(average_time) + ' nanoseconds to find every Poison type in the CSV file.')
     print(
-        'On average, it took: ' + str(average_time2) + 'nanoseconds to find the Pokémon with the highest base stat '
+        'On average, it took: ' + str(average_time2) + ' nanoseconds to find the Pokémon with the highest base stat '
                                                        'total.')
 
 
