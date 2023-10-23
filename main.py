@@ -1,10 +1,15 @@
+# CSV module imported for reading data from a file.
 import csv
+# Time module imported for tracking program run time.
 import time
 
+# Global list variables; one stores data from the csv file,
+# and the other stores the results from the binary search.
 mons = []
 results = []
 
 
+# Prints results from previous functions. Arguments include the average times (in nanoseconds)
 def print_results(average_time, average_time2):
     global results
     print("These Pokémon have the highest stat total: ")
@@ -20,6 +25,8 @@ def print_results(average_time, average_time2):
                                                        'total.')
 
 
+# Uses a binary search to find the highest base stat total for each Pokémon.
+# It starts searching from the middle, going left or right in the list depending on the value of the 5th row.
 def binary_search():
     global results, mons
     low = 0
@@ -29,7 +36,6 @@ def binary_search():
         mid = (high + low) // 2
         current_val = int(mons[mid][4])
         # If x is greater, ignore left half
-
         if current_val < max_val:
             low = mid + 1
             # If x is smaller, ignore right half
@@ -52,15 +58,16 @@ def binary_search():
             results.append(new_mon)
 
 
+# Creates a new list by sorting data by the 5th column in descending order
 def sort():
     global mons
     mons = sorted(mons, key=lambda x: x[4], reverse=True)
 
 
+# Checks for the Poison type from each row in the file.
 def check_type_psn(reader):
     global mons
-    print("The following Pokémon have the Poison type: ")
-    print('===============================================')
+
     for row in reader:
         if row[1] == "Name":
             continue
@@ -70,18 +77,21 @@ def check_type_psn(reader):
         if t1 == 'Poison' or t2 == 'Poison':
             print(name)
         mons.append(row)
-    print('===============================================')
 
 
+# opens the csv file to read data from it; also the main function.
 with open('Pokemon_numerical.csv') as mon:
     if __name__ == '__main__':
         average_time = 0
         average_time2 = 0
         reader = csv.reader(mon)
+        print("The following Pokémon have the Poison type: ")
+        print('===============================================')
         start = time.perf_counter_ns()
         for i in range(100):
             check_type_psn(reader)
         end = time.perf_counter_ns()
+        print('===============================================')
         average_time = (end - start) / 100
         sort()
         start2 = time.perf_counter_ns()
@@ -91,4 +101,4 @@ with open('Pokemon_numerical.csv') as mon:
         average_time2 = (end2 - start2) / 100
         print_results(average_time, average_time2)
 
-    # See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
